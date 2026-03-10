@@ -14,7 +14,7 @@ def main() -> None:
             description=race["description"]
         )
 
-        guild = obj["guild"]
+        guild = obj.get("guild")
         if obj["guild"]:
             Guild.objects.get_or_create(
                 name=guild["name"],
