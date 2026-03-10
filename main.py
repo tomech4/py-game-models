@@ -28,7 +28,7 @@ def main() -> None:
             email=obj["email"],
             bio=obj["bio"],
             race=race_obj,
-            guild=(guild_obj if guild_obj else None)
+            guild=guild_obj
         )
 
         skills = obj["race"]["skills"]
