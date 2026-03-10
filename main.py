@@ -9,26 +9,26 @@ def main() -> None:
         players_dict = json.load(file)
     for name, obj in players_dict.items():
         race = obj.get("race")
-        Race.objects.get_or_create(
+        race_obj, _ = Race.objects.get_or_create(
             name=race["name"],
             description=race["description"]
         )
 
         guild = obj.get("guild")
-        if guild:
-            Guild.objects.get_or_create(
+        try:
+            guild_obj, _ = Guild.objects.get_or_create(
                 name=guild["name"],
-                description=(
-                    guild["description"] if guild["description"] else None
-                )
+                description=guild["description"]
             )
+        except TypeError:
+            guild_obj = None
 
         Player.objects.create(
             nickname=name,
             email=obj["email"],
             bio=obj["bio"],
-            race=Race.objects.get(name=race["name"]),
-            guild=(Guild.objects.get(name=guild["name"]) if guild else None)
+            race=race_obj,
+            guild=(guild_obj if guild_obj else None)
         )
 
         skills = obj["race"]["skills"]
@@ -36,7 +36,7 @@ def main() -> None:
             Skill.objects.get_or_create(
                 name=skill["name"],
                 bonus=skill["bonus"],
-                race=Race.objects.get(name=race["name"])
+                race=race_obj
             )
 
 
