@@ -86,9 +86,6 @@
       "description": "Human race",
       "skills": []
     },
-    "guild": {
-      "name": "blacksmiths",
-      "description": "A community of the blacksmiths"
-    }
+    "guild": null
   }
 }
